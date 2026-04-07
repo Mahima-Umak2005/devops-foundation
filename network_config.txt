@@ -1,0 +1,2 @@
+Firewall enabled
+Security patch updated
