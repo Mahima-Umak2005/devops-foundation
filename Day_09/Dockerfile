@@ -1,0 +1,9 @@
+FROM python:3.10-slim
+RUN useradd -m myuser
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+RUN chown -R myuser:myuser /app
+USER myuser
+CMD ["python", "app.py"]

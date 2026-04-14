@@ -1,0 +1,14 @@
+FROM python:3.10-slim AS builder
+WORKDIR /build
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.10-slim
+RUN useradd -m myuser
+WORKDIR /app
+COPY --from=builder /root/.local /home/myuser/.local
+COPY . .
+ENV PATH=/home/myuser/.local/bin:$PATH
+RUN chown -R myuser:myuser /app /home/myuser
+USER myuser
+CMD ["python", "app.py"]
