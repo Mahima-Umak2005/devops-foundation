@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: meetmux
+  template:
+    metadata:
+      labels:
+        app: meetmux
+    spec:
+      containers:
+      - name: node-api
+        image: node:18
+        ports:
+        - containerPort: 3000
+        command: ["node", "server.js"]
